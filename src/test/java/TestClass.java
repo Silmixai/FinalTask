@@ -22,10 +22,11 @@ public class TestClass {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Driver\\chromedriver.exe");
-        driver = new ChromeDriver();
+
+        System.setProperty("webdriver.gecko.driver", "C:\\Driver\\geckodriver.exe");
+        driver = new FirefoxDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("http://automationpractice.com");
     }
 
@@ -52,14 +53,35 @@ public class TestClass {
     }
     @Test
 
-    public void task3() {
+    public void task4() {
         //E-4 Verify the ability to search items
         HomePage home = new HomePage(driver);
-        ContactUsPage contactUsPage = home.searchBlouse();
+        PageAfterSearch pageAfterSearch = home.search("Blouse");
+        pageAfterSearch.conatanBlouse();
 
+    }
+
+    @Test
+    public void  task5(){
+
+  //      E-5 Verify the ability to add and delete items from cart
+        HomePage home = new HomePage(driver);
+        PageAfterSearch pageAfterSearch = home.search("Faded Short Sleeve T-shirts ");
+        PageBuyClothes pageBuyClothes= pageAfterSearch.addToCart();
+        PopWindow popWindow =pageBuyClothes.buy();
+        popWindow.waitSec();
 
 
     }
+@Test
+    public void  task6(){
+//E-6 Catalog Test.
+        HomePage home = new HomePage(driver);
+        home.clickButtonWomen();
+
+    }
+
+
 
     @After
     public void shoutdown(){

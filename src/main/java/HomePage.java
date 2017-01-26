@@ -6,8 +6,10 @@ import org.openqa.selenium.WebDriver;
  */
 public class HomePage {
     private WebDriver driver;
-    By contactUsLocator= By.cssSelector("#contact-link>a");
-    By searchLocator= By.id("search_query_top");
+    private By contactUsLocator= By.cssSelector("#contact-link>a");
+    private By searchLocator= By.id("search_query_top");
+    private By buttonsearchLocator = By.cssSelector(".btn.btn-default.button-search");
+    private By buttonWomenLocator = By.linkText("http://automationpractice.com/index.php?id_category=7&controller=category");
 
 
 
@@ -22,9 +24,16 @@ public class HomePage {
     }
 
 
-    public ContactUsPage searchBlouse() {
+    public PageAfterSearch search(String textSearch) {
 
-        driver.findElement(searchLocator).sendKeys(" Blouse");
-        return new ContactUsPage(driver);
+        driver.findElement(searchLocator).sendKeys(textSearch);
+        driver.findElement(buttonsearchLocator).click();
+
+        return new PageAfterSearch(driver);
+    }
+
+    public  void clickButtonWomen(){
+        driver.findElement(buttonsearchLocator).click();
+
     }
 }
